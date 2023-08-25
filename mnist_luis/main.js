@@ -21,15 +21,21 @@ canvas.addEventListener("mousemove", (event) => {
 
     ctx.fillStyle = "black";
     ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-	
 });
-	
-	
+
 const eraseButton = document.getElementById("erase-button");
 eraseButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-	
-	
-	
+});
 
+const recognizeButton = document.getElementById("recognize-button");
+recognizeButton.addEventListener("click", () => {
+  // Obtiene la imagen del canvas.
+  const imageData = canvas.toDataURL("image/png");
+
+  // Envia la imagen a Cloud AI Platform Prediction.
+  const prediction = require("./get_prediction").predict(imageData);
+
+  // Muestra la predicción.
+  document.querySelector("#prediction").textContent = prediction;
 });
